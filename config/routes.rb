@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   get'/list_users', to: 'list_users#index'
   get '/user_detail', to: 'user_details#show'
   get '/add_users', to: 'add_users#index'
+  get '/edit_users', to: 'edit_users#index'
 
 end
