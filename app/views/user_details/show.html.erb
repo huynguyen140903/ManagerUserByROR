@@ -1,0 +1,135 @@
+
+<link href="../../assets/stylesheets/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../assets/javascripts/user.js"></script>
+<div>
+  <table>
+    <tr>
+      <td width="80%"><%= image_tag('logo-manager-user.gif', alt: 'Luvina') %>
+      <td>
+      <td align="left"><%= link_to 'ログアウト', logins_path %> &nbsp; <%= link_to 'トップ', list_users_path %>
+      <td>
+    </tr>
+  </table>
+</div>
+
+<form action="" method="delete" name="inputform", id="formADM005">
+  <table class="tbl_input" border="0" width="75%" cellpadding="0" cellspacing="0">
+    <tr>
+      <th align="left">
+        <div style="padding-left:100px;">
+          情報確認
+        </div>
+        <div style="padding-left:100px;">&nbsp;</div>
+      </th>
+    </tr>
+    <tr>
+      <td align="left">
+        <div style="padding-left:100px;">
+          <table border="1" width="70%" class="tbl_input" cellpadding="4" cellspacing="0">
+
+            <tr>
+              <td class="lbl_left">アカウント名:</td>
+              <td align="left"><%= @user_details["login_name"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">グループ:</td>
+              <td align="left"><%= @user_details["group_name"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">氏名:</td>
+              <td align="left"><%= @user_details["full_name"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">カタカナ氏名:</td>
+              <td align="left"><%= @user_details["full_name_kana"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">生年月日:</td>
+              <td align="left"><%= @user_details["birthday"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">メールアドレス:</td>
+              <td align="left"><%= @user_details["email"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">電話番号:</td>
+              <td align="left"><%= @user_details["tel"] %></td>
+            </tr>
+            <tr>
+              <th colspan="2"><a href="#" onclick="showHideLevelJP()">日本語能力</a></th>
+            </tr>
+          </table>
+        </div>
+        <div id="mydiv" style="padding-left: 100px; display: none;">
+          <table border="1" width="70%" class="tbl_input" cellpadding="4" cellspacing="0">
+              <tr>
+              <td class="lbl_left">資格:</td>
+              <td align="left"><%= @user_details["name_level"] %></td>
+            </tr>
+              <tr>
+                <td class="lbl_left">資格交付日:</td>
+                <td align="left"><%= @user_details["start_date"] %></td>
+              </tr>
+              <tr>
+                <td class="lbl_left">失効日:</td>
+                <td align="left"><%= @user_details["end_date"] %></td>
+              </tr>
+              <tr>
+                <td class="lbl_left">点数:</td>
+                <td align="left"><%= @user_details["total"] %></td>
+              </tr>
+
+          </table>
+    </div>
+      </td>
+    </tr>
+  </table>
+  <div style="padding-left:100px;">&nbsp;</div>
+  <!-- Begin vung button -->
+  <div style="padding-left:100px;">
+    <table border="0" cellpadding="4" cellspacing="0" width="300px">
+      <tr>
+        <th width="200px" align="center">&nbsp;</th>
+        <td>
+          <input class="btn" type="button" value="編集" , name="update"/>
+        </td>
+        <td>
+          <input class="btn" type="button" value="削除" , onclick="test();" , name="delete", id="del"/>
+        </td>
+        <td>
+          <input class="btn" type="button" value="戻る"/>
+        </td>
+      </tr>
+    </table>
+    <!-- End vung button -->
+</form>
+<!-- End vung input -->
+
+<!-- Begin vung footer -->
+<div class="lbl_footer">
+  <br><br><br><br>
+  Copyright ©　2010　ルビナソフトウエア株式会社. All rights reserved.
+</div>
+<!-- End vung footer -->
+
+<script type="text/javascript" charset="utf-8">
+    function test() {
+        if (confirm("Hello")){
+            // document.getElementById("formADM005").action = 12;
+            document.getElementById("formADM005").method = "post";
+            document.getElementById("formADM005").submit();
+        }
+    }
+</script>
+<script type="text/javascript" charset="utf-8">
+    function showHideLevelJP() {
+        if (document.getElementById("mydiv").style.display === "none") {
+            document.getElementById("mydiv").style.display = "block";
+
+        }
+        else {
+            document.getElementById("mydiv").style.display = "none";
+
+        }
+    }
+</script>

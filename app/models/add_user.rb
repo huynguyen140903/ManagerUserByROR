@@ -1,0 +1,2 @@
+class AddUser < ApplicationRecord
+end

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @success %>
+
+<div>
+  <%= link_to "Edit this success", edit_success_path(@success) %> |
+  <%= link_to "Back to successes", successes_path %>
+
+  <%= button_to "Destroy this success", @success, method: :delete %>
+</div>

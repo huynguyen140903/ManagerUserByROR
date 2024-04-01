@@ -1,0 +1,2 @@
+class EditUser < ApplicationRecord
+end

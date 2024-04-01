@@ -1,0 +1,17 @@
+<%= form_with(model: system_error) do |form| %>
+  <% if system_error.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(system_error.errors.count, "error") %> prohibited this system_error from being saved:</h2>
+
+      <ul>
+        <% system_error.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
