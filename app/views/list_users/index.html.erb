@@ -82,10 +82,10 @@
 
     <tr>
       <td><%= link_to user["user_id"] ,user_detail_path(user["user_id"]) %></td>
-      <td> <%= user["full_name"] %></td>
+      <td> <%= content_tag :div,truncate(user["full_name"], length: 50, omission: '...'), title: user["full_name"] %></td>
       <td> <%= user["birthday"] %></td>
       <td> <%= user["group_name"] %></td>
-      <td> <%= user["email"] %></td>
+      <td> <%= content_tag :div, truncate(user["email"], length: 50, omission: '...'), title: user["email"] %></td>
       <td> <%= user["tel"] %></td>
       <td> <%= user["name_level"] %></td>
       <td> <%= user["end_date"] %></td>

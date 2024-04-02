@@ -24,11 +24,11 @@
             </tr>
             <tr>
               <td class="lbl_left">氏名:</td>
-              <td align="left"><%= @user_details["full_name"] %></td>
+              <td> <%= content_tag :div,truncate(@user_details["full_name"], length: 50, omission: '...'), title: @user_details["full_name"] %></td>
             </tr>
             <tr>
               <td class="lbl_left">カタカナ氏名:</td>
-              <td align="left"><%= @user_details["full_name_kana"] %></td>
+              <td> <%= content_tag :div,truncate(@user_details["full_name_kana"], length: 50, omission: '...'), title: @user_details["full_name_kana"] %></td>
             </tr>
             <tr>
               <td class="lbl_left">生年月日:</td>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
               <td class="lbl_left">メールアドレス:</td>
-              <td align="left"><%= @user_details["email"] %></td>
+              <td> <%= content_tag :div,truncate(@user_details["email"], length: 50, omission: '...'), title: @user_details["email"] %></td>
             </tr>
             <tr>
               <td class="lbl_left">電話番号:</td>
@@ -47,7 +47,7 @@
             </tr>
           </table>
         </div>
-        <div id="mydiv" style="padding-left: 100px; display: none;">
+        <div id="myDiv" style="padding-left: 100px; display: none;">
           <table border="1" width="70%" class="tbl_input" cellpadding="4" cellspacing="0">
             <tr>
               <td class="lbl_left">資格:</td>
@@ -107,11 +107,12 @@
 </script>
 <script type="text/javascript" charset="utf-8">
     function showHideLevelJP() {
-        if (document.getElementById("mydiv").style.display === "none") {
-            document.getElementById("mydiv").style.display = "block";
+        if (document.getElementById("myDiv").style.display === "none") {
+            document.getElementById("myDiv").style.display = "block";
 
-        } else {
-            document.getElementById("mydiv").style.display = "none";
+        }
+        else {
+            document.getElementById("myDiv").style.display = "none";
 
         }
     }
