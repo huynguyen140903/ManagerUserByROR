@@ -3,7 +3,13 @@ class AddUsersController < ApplicationController
 
   # GET /add_users or /add_users.json
   def index
-    @add_users = AddUser.all
+    @users = AddUser.new
+    @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
+      JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
+      JOIN mst_japans as mst ON dtj.code_level = mst.code_level
+      JOIN mst_groups as g ON u.mst_group_id = g.group_id").to_a
+    @groups = MstGroup.all
+    @detail_japans = MstJapan.all
   end
 
   # GET /add_users/1 or /add_users/1.json
@@ -13,12 +19,13 @@ class AddUsersController < ApplicationController
   # GET /add_users/new
   def new
 
-    @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
-      JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
-      JOIN mst_japans as mst ON dtj.code_level = mst.code_level
-      JOIN mst_groups as g ON u.mst_group_id = g.group_id").to_a
-
-    @groups = MstGroup.all
+    # @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
+    #   JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
+    #   JOIN mst_japans as mst ON dtj.code_level = mst.code_level
+    #   JOIN mst_groups as g ON u.mst_group_id = g.group_id").to_a
+    #
+    # @groups = MstGroup.all
+    # puts @groups.present?
   end
 
   # GET /add_users/1/edit

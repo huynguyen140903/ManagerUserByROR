@@ -1,18 +1,5 @@
-
-<link href="../../assets/stylesheets/style.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="../../assets/javascripts/user.js"></script>
-<div>
-  <table>
-    <tr>
-      <td width="80%"><%= image_tag('logo-manager-user.gif', alt: 'Luvina') %>
-      <td>
-      <td align="left"><%= link_to 'ログアウト', logins_path %> &nbsp; <%= link_to 'トップ', list_users_path %>
-      <td>
-    </tr>
-  </table>
-</div>
-
-<form action="" method="delete" name="inputform", id="formADM005">
+<%= render 'layouts/header' %>
+<form action="" method="delete" name="inputform" , id="formADM005">
   <table class="tbl_input" border="0" width="75%" cellpadding="0" cellspacing="0">
     <tr>
       <th align="left">
@@ -62,25 +49,25 @@
         </div>
         <div id="mydiv" style="padding-left: 100px; display: none;">
           <table border="1" width="70%" class="tbl_input" cellpadding="4" cellspacing="0">
-              <tr>
+            <tr>
               <td class="lbl_left">資格:</td>
               <td align="left"><%= @user_details["name_level"] %></td>
             </tr>
-              <tr>
-                <td class="lbl_left">資格交付日:</td>
-                <td align="left"><%= @user_details["start_date"] %></td>
-              </tr>
-              <tr>
-                <td class="lbl_left">失効日:</td>
-                <td align="left"><%= @user_details["end_date"] %></td>
-              </tr>
-              <tr>
-                <td class="lbl_left">点数:</td>
-                <td align="left"><%= @user_details["total"] %></td>
-              </tr>
+            <tr>
+              <td class="lbl_left">資格交付日:</td>
+              <td align="left"><%= @user_details["start_date"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">失効日:</td>
+              <td align="left"><%= @user_details["end_date"] %></td>
+            </tr>
+            <tr>
+              <td class="lbl_left">点数:</td>
+              <td align="left"><%= @user_details["total"] %></td>
+            </tr>
 
           </table>
-    </div>
+        </div>
       </td>
     </tr>
   </table>
@@ -94,7 +81,7 @@
           <input class="btn" type="button" value="編集" , name="update"/>
         </td>
         <td>
-          <input class="btn" type="button" value="削除" , onclick="test();" , name="delete", id="del"/>
+          <input class="btn" type="button" value="削除" , onclick="test();" , name="delete" , id="del"/>
         </td>
         <td>
           <input class="btn" type="button" value="戻る"/>
@@ -106,15 +93,12 @@
 <!-- End vung input -->
 
 <!-- Begin vung footer -->
-<div class="lbl_footer">
-  <br><br><br><br>
-  Copyright ©　2010　ルビナソフトウエア株式会社. All rights reserved.
-</div>
+<%= render 'layouts/footer' %>
 <!-- End vung footer -->
 
 <script type="text/javascript" charset="utf-8">
     function test() {
-        if (confirm("Hello")){
+        if (confirm("Hello")) {
             // document.getElementById("formADM005").action = 12;
             document.getElementById("formADM005").method = "post";
             document.getElementById("formADM005").submit();
@@ -126,8 +110,7 @@
         if (document.getElementById("mydiv").style.display === "none") {
             document.getElementById("mydiv").style.display = "block";
 
-        }
-        else {
+        } else {
             document.getElementById("mydiv").style.display = "none";
 
         }

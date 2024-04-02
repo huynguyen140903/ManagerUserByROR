@@ -43,11 +43,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_094257) do
     t.datetime "updated_at", null: false
   end
 
-# Could not dump table "mst_group" because of following StandardError
-#   Unknown type 'string' for column 'group_name'
-
-# Could not dump table "mst_japan" because of following StandardError
-#   Unknown type 'string' for column 'code_level'
+  create_table "parent_and_child_tables", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "successes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -59,13 +58,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_094257) do
     t.datetime "updated_at", null: false
   end
 
-# Could not dump table "tbl_detail_user_japan" because of following StandardError
-#   Unknown type 'string' for column 'code_level'
-
-  create_table "tbl_user", primary_key: "user_id", force: :cascade do |t|
-    t.integer "id", null: false
+  create_table "user_details", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.integer "group_id", null: false
     t.string "login_name", null: false
     t.string "password", null: false
@@ -76,12 +77,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_094257) do
     t.date "birthday", null: false
   end
 
-  create_table "user_details", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_foreign_key "tbl_detail_user_japan", "mst_japan", column: "code_level", primary_key: "id"
-  add_foreign_key "tbl_detail_user_japan", "tbl_user", column: "user_id", primary_key: "id"
-  add_foreign_key "tbl_user", "mst_group", column: "group_id", primary_key: "id"
 end
