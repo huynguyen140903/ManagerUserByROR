@@ -4,8 +4,6 @@ class ListUsersController < ApplicationController
   # GET /list_users or /list_users.json
   def index
 
-    #@list_users = TblUser.joins(:mst_group, :tbl_detail_user_japan, :mst_japan).all
-
     @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
       JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
       JOIN mst_japans as mst ON dtj.code_level = mst.code_level

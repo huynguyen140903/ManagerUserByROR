@@ -47,8 +47,8 @@
               <%= select_tag "group_name", options_from_collection_for_select(@groups, "group_id", "group_name"), prompt: "全て"   %>
             </td>
             <td align="left">
-             <%= button_to '検索', logins_path  %><%= button_to '新規追加', logins_path  %>
-
+             <%= button_to '検索', logins_path  %>
+              <button onclick="window.location.href = '/add_users'">新規追加</button>
             </td>
           </tr>
         </table>

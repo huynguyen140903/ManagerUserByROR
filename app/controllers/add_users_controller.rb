@@ -12,7 +12,13 @@ class AddUsersController < ApplicationController
 
   # GET /add_users/new
   def new
-    @add_user = AddUser.new
+
+    @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
+      JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
+      JOIN mst_japans as mst ON dtj.code_level = mst.code_level
+      JOIN mst_groups as g ON u.mst_group_id = g.group_id").to_a
+
+    @groups = MstGroup.all
   end
 
   # GET /add_users/1/edit
