@@ -1,2 +1,0 @@
-class Success < ApplicationRecord
-end

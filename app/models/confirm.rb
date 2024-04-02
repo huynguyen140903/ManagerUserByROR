@@ -1,2 +1,0 @@
-class Confirm < ApplicationRecord
-end

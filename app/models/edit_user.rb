@@ -1,2 +1,0 @@
-class EditUser < ApplicationRecord
-end

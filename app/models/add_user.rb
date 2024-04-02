@@ -1,2 +1,0 @@
-class AddUser < ApplicationRecord
-end

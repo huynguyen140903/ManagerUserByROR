@@ -1,2 +1,0 @@
-class SystemError < ApplicationRecord
-end
