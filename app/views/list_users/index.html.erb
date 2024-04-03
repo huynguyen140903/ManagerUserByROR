@@ -1,6 +1,6 @@
 <%= render 'layouts/header' %>
 <!-- Begin vung dieu kien tim kiem -->
-<form action="" method="post" name="mainform">
+<form action="show" method="get" name="mainform">
 
   <table class="tbl_input" border="0" width="90%" cellpadding="0" cellspacing="0">
     <tr>
@@ -32,7 +32,7 @@
               <%= select_tag "group_name", options_from_collection_for_select(@groups, "group_id", "group_name"), prompt: "全て"   %>
             </td>
             <td align="left">
-             <%= button_to '検索', logins_path  %>
+             <%= submit_tag '検索' %>
               <button onclick="window.location.href = '/add_users'">新規追加</button>
             </td>
           </tr>
@@ -82,10 +82,10 @@
 
     <tr>
       <td><%= link_to user["user_id"] ,user_detail_path(user["user_id"]) %></td>
-      <td> <%= content_tag :div,truncate(user["full_name"], length: 50, omission: '...'), title: user["full_name"] %></td>
+      <td> <%= content_tag :div,truncate(user["full_name"], length: 28, omission: '...'), title: user["full_name"] %></td>
       <td> <%= user["birthday"] %></td>
-      <td> <%= user["group_name"] %></td>
-      <td> <%= content_tag :div, truncate(user["email"], length: 50, omission: '...'), title: user["email"] %></td>
+      <td> <%= content_tag :div,truncate(user["group_name"], length: 28, omission: '...'), title: user["group_name"] %></td>
+      <td> <%= content_tag :div, truncate(user["email"], length: 28, omission: '...'), title: user["email"] %></td>
       <td> <%= user["tel"] %></td>
       <td> <%= user["name_level"] %></td>
       <td> <%= user["end_date"] %></td>

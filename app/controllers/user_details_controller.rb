@@ -8,8 +8,8 @@ class UserDetailsController < ApplicationController
   # GET /user_details/1 or /user_details/1.json
   def show
     @user_details = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
-      JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
-      JOIN mst_japans as mst ON dtj.code_level = mst.code_level
+      LEFT JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
+      LEFT JOIN mst_japans as mst ON dtj.code_level = mst.code_level
       JOIN mst_groups as g ON u.mst_group_id = g.group_id WHERE user_id = #{params[:id]}").first
 
   end
