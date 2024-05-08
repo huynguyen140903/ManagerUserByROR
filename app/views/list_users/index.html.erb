@@ -40,13 +40,23 @@
         </table>
       </td>
     </tr>
+    <tr>
+      <td class="errMsg" colspan="2">
+        <% if flash[:notice].present? %>
+          <% flash[:notice].each do |message| %>
+            <p><%= message %></p>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
   </table>
   <!-- End vung dieu kien tim kiem -->
 </form>
-<%= @msg %>
+
 <!-- Begin vung hien thi danh sach user.js -->
 <table class="tbl_list" border="1" cellpadding="4" cellspacing="0" width="80%">
   <thead>
+
   <tr class="tr2">
     <th align="center" width="20px">
       ID

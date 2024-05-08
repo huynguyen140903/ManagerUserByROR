@@ -6,18 +6,16 @@ class ListUsersController < ApplicationController
     if params[:keyword].present? || params[:group].present?
       @list_users = params[:list_users]
       @keyword = params[:keyword]
-      @group_display = MstGroup.where(group_id: params[:group]).first.group_name
+      @group_display = MstGroup.where(group_id: params[:group].to_i).first.group_id
     else
       @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
       JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
       JOIN mst_japans as mst ON dtj.code_level = mst.code_level
       JOIN mst_groups as g ON u.mst_group_id = g.group_id").to_a
-      @group_display = "全て"
-      @keyword = ''
     end
     unless @list_users.present?
       @list_users = []
-      @msg = 'User không tồn tại.'
+      flash[:notice] = [Constant::Error::ERR_0013]
     end
     @groups = MstGroup.all
   end
@@ -37,14 +35,20 @@ class ListUsersController < ApplicationController
 
   # POST /list_users or /list_users.json
   def create
-    keyword = params[:name]
-    group = params[:group_name]
-
     query = "SELECT * from tbl_users as u
               JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
               JOIN mst_japans as mst ON dtj.code_level = mst.code_level
-              JOIN mst_groups as g ON u.mst_group_id = g.group_id
-              WHERE u.full_name LIKE '%#{keyword}%' AND g.group_id = #{group}"
+              JOIN mst_groups as g ON u.mst_group_id = g.group_id"
+
+    keyword = params[:name]
+    group = params[:group_name].to_i
+    if keyword.present? && group != 0
+      query = query + " WHERE u.full_name LIKE '%#{keyword}%' AND g.group_id = #{group}"
+    elsif keyword.present?
+      query = query + " WHERE u.full_name LIKE '%#{keyword}%'"
+    elsif group != 0
+      query = query + " WHERE g.group_id = #{group}"
+    end
 
     list_users = ActiveRecord::Base.connection.execute(query).to_a
     redirect_to list_users_path(list_users: list_users, keyword: keyword, group: group)
