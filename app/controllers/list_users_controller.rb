@@ -9,7 +9,6 @@ class ListUsersController < ApplicationController
       LEFT JOIN mst_japans as mst ON dtj.code_level = mst.code_level
       JOIN mst_groups as g ON u.mst_group_id = g.group_id LIMIT 5").to_a
     @groups = MstGroup.all
-    
   end
 
   # GET /list_users/1 or /list_users/1.json
