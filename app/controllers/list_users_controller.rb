@@ -15,7 +15,7 @@ class ListUsersController < ApplicationController
     end
     unless @list_users.present?
       @list_users = []
-      flash[:notice] = [Constant::Error::ERR_0013]
+      flash[:notice] = Constant::Error::ERR_0013
     end
     @groups = MstGroup.all
   end
