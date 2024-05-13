@@ -3,8 +3,6 @@ class LoginsController < ApplicationController
 
   # GET /logins or /logins.json
   def index
-    @logins = Login.all
-
   end
 
   # GET /logins/1 or /logins/1.json
@@ -28,6 +26,7 @@ class LoginsController < ApplicationController
       flash[:notice] = [Constant::Error::ERR_001_LOGIN_NAME, Constant::Error::ERR_001_PASSWORD]
       redirect_to logins_path
     elsif user.present? && params[:password] == user.password
+      session[:user_id] = user.user_id
       redirect_to list_users_path
     else
       flash[:notice] = [Constant::Error::ERR_0016]
@@ -37,25 +36,16 @@ class LoginsController < ApplicationController
 
   # PATCH/PUT /logins/1 or /logins/1.json
   def update
-    respond_to do |format|
-      if @login.update(login_params)
-        format.html { redirect_to login_url(@login), notice: "Login was successfully updated." }
-        format.json { render :show, status: :ok, location: @login }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @login.errors, status: :unprocessable_entity }
-      end
-    end
+
   end
 
   # DELETE /logins/1 or /logins/1.json
   def destroy
-    @login.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to logins_url, notice: "Login was successfully destroyed." }
-      format.json { head :no_content }
+    # logout: check co user đang login thì xóa khỏi session
+    if session[:user_id].present?
+      session[:user_id] = nil
     end
+    redirect_to logins_path
   end
 
   private

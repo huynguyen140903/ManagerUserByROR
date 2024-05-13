@@ -15,9 +15,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'logins#index'
-  get'/list_users', to: 'list_users#index'
+  get '/list_users', to: 'list_users#index'
+  get '/sort_users', to: 'list_users#sort'
+  get '/paging_users', to: 'list_users#paging'
   get '/user_detail', to: 'user_details#show'
   get '/add_users', to: 'add_users#index'
   get '/edit_users', to: 'edit_users#index'
+  get '/logout', to: 'logins#destroy'
 
 end

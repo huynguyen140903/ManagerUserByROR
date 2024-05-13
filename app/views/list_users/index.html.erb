@@ -20,9 +20,6 @@
             <td class="lbl_left">氏名:</td>
             <td align="left">
               <%= text_field_tag 'name', @keyword, class: 'txBox', size: 20 %>
-<!--              <input class="txBox" type="text" name="name" value=""-->
-<!--                     size="20" onfocus="this.style.borderColor='#0066ff';"-->
-<!--                     onblur="this.style.borderColor='#aaaaaa';"/>-->
             </td>
             <td></td>
           </tr>
@@ -40,6 +37,16 @@
         </table>
       </td>
     </tr>
+<<<<<<< HEAD
+  </table>
+  <!-- End vung dieu kien tim kiem -->
+</form>
+<div colspan="2" style="color: red">
+  <p><%= flash[:notice] %></p>
+</div>
+
+<!-- Begin vung hien thi danh sach user -->
+=======
 
   </table>
   <!-- End vung dieu kien tim kiem -->
@@ -50,15 +57,20 @@
     <% end %>
 </div>
 <!-- Begin vung hien thi danh sach user.js -->
+>>>>>>> d98e53e0eef15018eb90d383fb260ffaf6402415
 <table class="tbl_list" border="1" cellpadding="4" cellspacing="0" width="80%">
   <thead>
-
   <tr class="tr2">
     <th align="center" width="20px">
       ID
     </th>
     <th align="left">
-      氏名 <a href="">▲▽</a>
+      氏名
+      <% if @sort_by_fullname && @sort_by_fullname == 'asc' %>
+        <%= link_to "▲▽", sort_users_path(keyword: @keyword, group_display: @group_display, sort_by_fullname: 'asc', sort_by: 'fullname') %>
+      <% else %>
+        <%= link_to "△▼", sort_users_path(keyword: @keyword, group_display: @group_display, sort_by_fullname: 'desc', sort_by: 'fullname') %>
+      <% end %>
     </th>
     <th align="left">
       生年月日
@@ -73,10 +85,20 @@
       電話番号
     </th>
     <th align="left">
-      日本語能力 <a href="">▲▽</a>
+      日本語能力
+      <% if @sort_by_code_level && @sort_by_code_level == 'asc' %>
+        <%= link_to "▲▽", sort_users_path(keyword: @keyword, group_display: @group_display, sort_by_code_level: 'asc', sort_by: 'code_level') %>
+      <% else %>
+        <%= link_to "△▼", sort_users_path(keyword: @keyword, group_display: @group_display, sort_by_code_level: 'desc', sort_by: 'code_level') %>
+      <% end %>
     </th>
     <th align="left">
-      失効日 <a href="">△▼</a>
+      失効日
+      <% if @sort_by_end_date && @sort_by_end_date == 'asc' %>
+        <%= link_to "▲▽", sort_users_path(keyword: @keyword, group_display: @group_display, sort_by_end_date: 'asc', sort_by: 'end_date') %>
+      <% else %>
+        <%= link_to "△▼", sort_users_path(keyword: @keyword, group_display: @group_display, sort_by_end_date: 'desc', sort_by: 'end_date') %>
+      <% end %>
     </th>
     <th align="left">
       点数
@@ -86,25 +108,50 @@
   <tbody>
 
   <% @list_users.each do |user| %>
-
     <tr>
-      <td><%= link_to user["user_id"] ,user_detail_path(user["user_id"]) %></td>
-      <td> <%= content_tag :div,truncate(user["full_name"], length: 50, omission: '...'), title: user["full_name"] %></td>
-      <td> <%= user["birthday"] %></td>
-      <td> <%= user["group_name"] %></td>
-      <td> <%= content_tag :div, truncate(user["email"], length: 50, omission: '...'), title: user["email"] %></td>
-      <td> <%= user["tel"] %></td>
-      <td> <%= user["name_level"] %></td>
-      <td> <%= user["end_date"] %></td>
-      <td> <%= user["total"] %></td>
+<!--      (0: 'user_id', 1: 'full_name', 2: 'birthday', 3: 'group_name', 4: 'email', 5: 'tel', 6: 'name_level', 7: 'end_date', 8: 'total')-->
+      <td><%= link_to user['user_id'] ,user_detail_path(user['user_id']) %></td>
+      <td> <%= content_tag :div,truncate(user['full_name'], length: 50, omission: '...'), title: user['full_name'] %></td>
+      <td> <%= user['birthday'] %></td>
+      <td> <%= user['group_name'] %></td>
+      <td> <%= content_tag :div, truncate(user['email'], length: 50, omission: '...'), title: user['email'] %></td>
+      <td> <%= user['tel'] %></td>
+      <td> <%= user['name_level'] %></td>
+      <td> <%= user['end_date'] %></td>
+      <td> <%= user['total'] %></td>
   <% end %>
   </tr>
   </tbody>
 </table>
 
+<!--Paging-->
 <table>
   <tr>
-    <td class="lbl_paging"><a href="#">1</a> &nbsp;<a href="#">2</a> &nbsp;<a href="#">3</a>&nbsp;<a href="#">>></a>
+    <td class="lbl_paging">
+      <% if @list_page[0] && @list_page[0] > Constant::Paging::PAGE_SIZE  %>
+        <%= link_to '<<', paging_users_path(keyword: @keyword, group_display: @group_display,
+                                            sort_by_fullname: @sort_by_fullname,
+                                            sort_by_code_level: @sort_by_code_level,
+                                            sort_by_end_date: @sort_by_end_date,
+                                            sort_by: @sort_by,
+                                            current_page: @list_page[0] - 3) %>
+      <% end %>
+      <% @list_page.each do |page| %>
+        <%= link_to page, paging_users_path(keyword: @keyword, group_display: @group_display,
+                                            sort_by_fullname: @sort_by_fullname,
+                                            sort_by_code_level: @sort_by_code_level,
+                                            sort_by_end_date: @sort_by_end_date,
+                                            sort_by: @sort_by,
+                                            current_page: page) %>
+      <% end %>
+      <% if @list_page[@list_page.size - 1] && @list_page[@list_page.size - 1] < @total_page  %>
+        <%= link_to '>>', paging_users_path(keyword: @keyword, group_display: @group_display,
+                                            sort_by_fullname: @sort_by_fullname,
+                                            sort_by_code_level: @sort_by_code_level,
+                                            sort_by_end_date: @sort_by_end_date,
+                                            sort_by: @sort_by,
+                                            current_page: @list_page[@list_page.size - 1] + 1) %>
+      <% end %>
     </td>
   </tr>
 </table>

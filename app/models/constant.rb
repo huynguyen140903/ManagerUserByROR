@@ -29,4 +29,9 @@ module Constant
     MSG004 = "削除しますが、よろしいでしょうか。"
     MSG005 = "検索条件に該当するユーザが見つかりません。"
   end
+
+  module Paging
+    RECORD_PER_PAGE = 5
+    PAGE_SIZE = 3
+  end
 end
