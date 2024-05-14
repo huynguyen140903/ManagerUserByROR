@@ -22,7 +22,7 @@
             <tr>
               <td class="lbl_left"><font color="red">*</font> アカウント名:</td>
               <td align="left">
-                <input class="txBox" type="text" name="id" value=""
+                <input class="txBox" type="text" name="login_name" value=""
                        size="15" onfocus="this.style.borderColor='#0066ff';"
                        onblur="this.style.borderColor='#aaaaaa';"/>
               </td>
@@ -44,7 +44,7 @@
             <tr>
               <td class="lbl_left">カタカナ氏名:</td>
               <td align="left">
-                <input class="txBox" type="text" name="name" value=""
+                <input class="txBox" type="text" name="name_kana" value=""
                        size="30" onfocus="this.style.borderColor='#0066ff';"
                        onblur="this.style.borderColor='#aaaaaa';"/>
               </td>
@@ -117,7 +117,7 @@
               <td class="lbl_left">資格交付日:</td>
               <td align="left">
                 <select>
-                  <option   <%= select_tag "year", options_for_select((1900..Date.today.year).to_a.reverse) %></option>
+                  <option  <%= select_tag "year", options_for_select((1900..Date.today.year).to_a) %></option>
                 </select>年
                 <select>
                   <option <%= select_tag "month", options_for_select((1..12).to_a) %></option>
@@ -131,7 +131,7 @@
               <td class="lbl_left">失効日:</td>
               <td align="left">
                 <select>
-                  <option   <%= select_tag "year", options_for_select((1900..Date.today.year).to_a.reverse) %></option>
+                  <option   <%= select_tag "year", options_for_select((1900..Date.today.year).to_a) %></option>
 
                 </select>年
                 <select>
@@ -163,7 +163,8 @@
       <tr>
         <th width="200px" align="center">&nbsp;</th>
         <td>
-          <input class="btn" type="submit" value="確認"/>
+<!--          <input class="btn" type="submit" value="確認"/>-->
+          <button class="btn" type="submit" onclick="window.location.href = '/confirms'">確認</button>
         </td>
         <td>
           <input class="btn" type="button" value="戻る"/>
@@ -174,8 +175,6 @@
 </form>
 <!-- End vung input -->
 <%= render 'layouts/footer' %>
-<!-- Begin vung footer -->
-</body>
 <script type="text/javascript" charset="utf-8">
     function showHideLevelJP() {
         if (document.getElementById("myDiv").style.display === "none") {
@@ -187,4 +186,3 @@
         }
     }
 </script>
-</html>

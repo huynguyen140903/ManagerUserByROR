@@ -26,31 +26,18 @@ class ListUsersController < ApplicationController
       @sort_by_end_date = sort_by_end_date
       @sort_by = sort_by
     else
-<<<<<<< HEAD
       query = "SELECT * from tbl_users as u
                 LEFT JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
                 LEFT JOIN mst_japans as mst ON dtj.code_level = mst.code_level
                 LEFT JOIN mst_groups as g ON u.mst_group_id = g.group_id"
       list_users = ActiveRecord::Base.connection.execute(query).to_a
-=======
-      @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
-      JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
-      JOIN mst_japans as mst ON dtj.code_level = mst.code_level
-      JOIN mst_groups as g ON u.mst_group_id = g.group_id").to_a
-    end
-    unless @list_users.present?
-      @list_users = []
-      flash[:notice] = Constant::Error::ERR_0013
->>>>>>> d98e53e0eef15018eb90d383fb260ffaf6402415
     end
     @groups = MstGroup.all
-
     flash[:notice] = nil
     unless list_users.present?
       @list_users = []
       flash[:notice] = Constant::Error::ERR_0013
     end
-
     @current_page = current_page || 1
     @list_users = get_paging(list_users, @current_page.to_i)
   end
@@ -194,6 +181,7 @@ class ListUsersController < ApplicationController
 
   # POST /list_users or /list_users.json
   def create
+    # xử lí cho chức năng search
     query = "SELECT * from tbl_users as u
               LEFT JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
               LEFT JOIN mst_japans as mst ON dtj.code_level = mst.code_level
