@@ -3,12 +3,27 @@ class AddUsersController < ApplicationController
 
   # GET /add_users or /add_users.json
   def index
-    # @users = AddUser.new
-    # @list_users = ActiveRecord::Base.connection.execute("SELECT * from tbl_users as u
-    #   JOIN tbl_detail_user_japans as dtj on u.user_id = dtj.tbl_user_id
-    #   JOIN mst_japans as mst ON dtj.code_level = mst.code_level
-    #   JOIN mst_groups as g ON u.mst_group_id = g.group_id").to_a
-    @user_info = []
+    login_name = params[:login_name]
+    group_name = params[:group_name].to_i
+    full_name = params[:full_name]
+    name_kana = params[:name_kana]
+    year_birth = params[:year_birth]
+    month_birth = params[:month_birth]
+    day_birth = params[:day_birth]
+    email = params[:email]
+    tel = params[:tel]
+    password = params[:password]
+    passConfirm = params[:passConfirm]
+    name_level = params[:name_level]
+    year_start = params[:year_start]
+    month_start = params[:month_start]
+    day_start = params[:day_start]
+    year_end = params[:year_end]
+    month_end = params[:month_end]
+    day_end = params[:day_end]
+    total = params[:total]
+
+
     @groups = MstGroup.all
     @detail_japans = MstJapan.all
   end

@@ -36,7 +36,7 @@
             <tr>
               <td class="lbl_left"><font color="red">*</font> 氏名:</td>
               <td align="left">
-                <input class="txBox" type="text" name="name" value=""
+                <input class="txBox" type="text" name="full_name" value=""
                        size="30" onfocus="this.style.borderColor='#0066ff';"
                        onblur="this.style.borderColor='#aaaaaa';"/>
               </td>
@@ -53,16 +53,9 @@
               <td class="lbl_left"><font color="red">*</font> 生年月日:</td>
               <td align="left">
 
-                <select>
-                  <option   <%= select_tag "year", options_for_select((1900..Date.today.year).to_a.reverse) %></option>
-
-                </select>年
-                <select>
-                  <option <%= select_tag "month", options_for_select((1..12).to_a) %></option>
-                </select>月
-                <select>
-                  <option <%= select_tag "day", options_for_select((1..31).to_a) %></option>
-                </select>日
+              <%= select_tag "year_birth", options_for_select((1900..Date.today.year).to_a.reverse) %>年
+                <%= select_tag "month_birth", options_for_select((1..12).to_a) %>月
+                <%= select_tag "day_birth", options_for_select((1..31).to_a) %>日
               </td>
             </tr>
             <tr>
@@ -116,31 +109,17 @@
             <tr>
               <td class="lbl_left">資格交付日:</td>
               <td align="left">
-                <select>
-                  <option  <%= select_tag "year", options_for_select((1900..Date.today.year).to_a) %></option>
-                </select>年
-                <select>
-                  <option <%= select_tag "month", options_for_select((1..12).to_a) %></option>
-                </select>月
-                <select>
-                  <option <%= select_tag "day", options_for_select((1..31).to_a) %></option>
-                </select>日
+                <%= select_tag "year_start", options_for_select((1900..Date.today.year).to_a.reverse) %>年
+                <%= select_tag "month_start", options_for_select((1..12).to_a) %>月
+                <%= select_tag "day_start", options_for_select((1..31).to_a) %>日
               </td>
             </tr>
             <tr>
               <td class="lbl_left">失効日:</td>
               <td align="left">
-                <select>
-                  <option   <%= select_tag "year", options_for_select((1900..Date.today.year).to_a) %></option>
-
-                </select>年
-                <select>
-                  <option <%= select_tag "month", options_for_select((1..12).to_a) %></option>
-
-                </select>月
-                <select>
-                  <option <%= select_tag "day", options_for_select((1..31).to_a) %></option>
-                </select>日
+                <%= select_tag "year_end", options_for_select((1900..Date.today.year).to_a.reverse) %>年
+                <%= select_tag "month_end", options_for_select((1..12).to_a) %>月
+                <%= select_tag "day_end", options_for_select((1..31).to_a) %>日
               </td>
             </tr>
             <tr>
@@ -163,7 +142,6 @@
       <tr>
         <th width="200px" align="center">&nbsp;</th>
         <td>
-<!--          <input class="btn" type="submit" value="確認"/>-->
           <button class="btn" type="submit" onclick="window.location.href = '/confirms'">確認</button>
         </td>
         <td>

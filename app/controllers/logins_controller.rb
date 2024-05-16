@@ -23,13 +23,13 @@ class LoginsController < ApplicationController
   def create
     user = TblUser.find_by login_name: params[:loginId]
     if params[:loginId].blank? && params[:password].blank?
-      flash[:notice] = [Constant::Error::ERR_001_LOGIN_NAME, Constant::Error::ERR_001_PASSWORD]
+      flash[:notice] = [Constant::Error::ER001_loginName, Constant::Error::ER001_password]
       redirect_to logins_path
     elsif user.present? && params[:password] == user.password
       session[:user_id] = user.user_id
       redirect_to list_users_path
     else
-      flash[:notice] = [Constant::Error::ERR_0016]
+      flash[:notice] = [Constant::Error::ER016]
       redirect_to logins_path
     end
   end
