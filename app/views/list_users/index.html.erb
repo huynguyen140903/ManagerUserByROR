@@ -1,12 +1,9 @@
 <%= render 'layouts/header' %>
 <!-- Begin vung dieu kien tim kiem -->
-<form action="" method="post" name="mainform">
-
+<form action="/search_users" method="get" name="mainform">
   <table class="tbl_input" border="0" width="90%" cellpadding="0" cellspacing="0">
     <tr>
-      <td>
-        &nbsp;
-      </td>
+      <td></td>
     </tr>
     <tr>
       <td>
@@ -25,13 +22,13 @@
           </tr>
           <tr>
             <td class="lbl_left">グループ:</td>
-
             <td align="left" width="80px">
               <%= select_tag "group_name", options_from_collection_for_select(@groups, "group_id", "group_name", @group_display) %>
             </td>
             <td align="left">
-             <%= button_to '検索', list_users_path  %>
-              <button onclick="window.location.href = '/add_users'">新規追加</button>
+              <input type="hidden" name="action_type" value="search" />
+              <input class="btn" type="submit" value="検索"/>
+              <input class="btn" type="button" onclick="window.location='/add_users'" value="新規追加" />
             </td>
           </tr>
         </table>
@@ -44,6 +41,7 @@
 <div colspan="2" style="color: red">
   <p><%= flash[:notice] %></p>
 </div>
+
 <!-- Begin vung hien thi danh sach user -->
 <table class="tbl_list" border="1" cellpadding="4" cellspacing="0" width="80%">
   <thead>
@@ -96,9 +94,9 @@
 
   <% @list_users.each do |user| %>
     <tr>
-<!--      (0: 'user_id', 1: 'full_name', 2: 'birthday', 3: 'group_name', 4: 'email', 5: 'tel', 6: 'name_level', 7: 'end_date', 8: 'total')-->
-      <td><%= link_to user['user_id'] ,user_detail_path(user['user_id']) %></td>
-      <td> <%= content_tag :div,truncate(user['full_name'], length: 50, omission: '...'), title: user['full_name'] %></td>
+      <!--      (0: 'user_id', 1: 'full_name', 2: 'birthday', 3: 'group_name', 4: 'email', 5: 'tel', 6: 'name_level', 7: 'end_date', 8: 'total')-->
+      <td><%= link_to user['user_id'], add_user_path(user['user_id']) %></td>
+      <td> <%= content_tag :div, truncate(user['full_name'], length: 50, omission: '...'), title: user['full_name'] %></td>
       <td> <%= user['birthday'] %></td>
       <td> <%= user['group_name'] %></td>
       <td> <%= content_tag :div, truncate(user['email'], length: 50, omission: '...'), title: user['email'] %></td>
@@ -116,8 +114,7 @@
   <tr>
     <td class="lbl_paging">
       <% if @list_page %>
-
-        <% if @list_page[0] > Constant::Paging::PAGE_SIZE  %>
+        <% if @list_page[0] > Constant::Paging::PAGE_SIZE %>
           <%= link_to '<<', paging_users_path(keyword: @keyword, group_display: @group_display,
                                               sort_by_fullname: @sort_by_fullname,
                                               sort_by_code_level: @sort_by_code_level,
@@ -125,15 +122,17 @@
                                               sort_by: @sort_by,
                                               current_page: @list_page[0] - 3) %>
         <% end %>
-        <% @list_page.each do |page| %>
-          <%= link_to page, paging_users_path(keyword: @keyword, group_display: @group_display,
-                                              sort_by_fullname: @sort_by_fullname,
-                                              sort_by_code_level: @sort_by_code_level,
-                                              sort_by_end_date: @sort_by_end_date,
-                                              sort_by: @sort_by,
-                                              current_page: page) %>
+        <% if @list_page.size > 1 %>
+          <% @list_page.each do |page| %>
+            <%= link_to page, paging_users_path(keyword: @keyword, group_display: @group_display,
+                                                sort_by_fullname: @sort_by_fullname,
+                                                sort_by_code_level: @sort_by_code_level,
+                                                sort_by_end_date: @sort_by_end_date,
+                                                sort_by: @sort_by,
+                                                current_page: page) %>
+          <% end %>
         <% end %>
-        <% if @list_page[@list_page.size - 1] && @list_page[@list_page.size - 1] < @total_page  %>
+        <% if @list_page[@list_page.size - 1] && @list_page[@list_page.size - 1] < @total_page %>
           <%= link_to '>>', paging_users_path(keyword: @keyword, group_display: @group_display,
                                               sort_by_fullname: @sort_by_fullname,
                                               sort_by_code_level: @sort_by_code_level,
